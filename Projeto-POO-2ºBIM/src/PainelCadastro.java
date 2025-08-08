@@ -18,7 +18,7 @@ class PainelCadastro extends JPanel {
     private JButton btnIniciarBatalha;
     private JButton btnVoltar;
     private JPanel mainPanel;
-    private CardLayout cardLayout;
+    private CardLayout cardLayout; 
 
     // Construtor: primeiro método da classe a ser executado.
     public PainelCadastro(JPanel mainPanel, CardLayout cardLayout) {
@@ -69,9 +69,9 @@ class PainelCadastro extends JPanel {
         painel.add(labelPersonagem, gbc);
 
         String[] classes = {
-                "Guerreiro (Dano: 50, Defesa: 30)",
-                "Mago (Dano: 60, Defesa: 15)",
-                "Arqueiro (Dano: 45, Defesa: 25)"
+                "Guerreiro (Dano: 50, Defesa: 20)",
+                "Mago (Dano: 30, Defesa: 10)",
+                "Arqueiro (Dano: 25, Defesa: 15)"
         };
 
         comboClasse = new JComboBox<>(classes);
@@ -129,12 +129,13 @@ class PainelCadastro extends JPanel {
         return painel;
     }
 
+    // Método usado para resetar a tela e voltar quando apertar no btnvoltar.
     private void resetarTela() {
         personagens.clear();
         jogadorAtual = 1;
         campoNome.setText("");
         labelNome.setText("Jogador 1:");
-        btnCadastrar.setEnabled(true);
+        btnCadastrar.setEnabled(true); 
         btnIniciarBatalha.setVisible(false);
         resultado.setText("");
     }
@@ -142,24 +143,7 @@ class PainelCadastro extends JPanel {
     private void cadastrarPersonagem() {
         String nome = campoNome.getText().trim();
         String classe = (String) comboClasse.getSelectedItem();
-
-        if (nome.isEmpty()) {
-            mostrarErro("Nome obrigatório!");
-            return;
-        }
-
-        if (nome.length() < 2) {
-            mostrarErro("Nome deve ter pelo menos 2 caracteres!");
-            return;
-        }
-
-        for (Personagem p : personagens) {
-            if (p.getNome().equalsIgnoreCase(nome)) {
-                mostrarErro("Nome já existe! Escolha outro nome.");
-                return;
-            }
-        }
-
+   
         try {
             Personagem novo = criarPersonagem(nome, classe);
             if (novo != null) {
@@ -184,11 +168,11 @@ class PainelCadastro extends JPanel {
     }
 
     private Personagem criarPersonagem(String nome, String classe) throws NomeInvalidoException {
-        if (classe.equals("Guerreiro (Dano: 50, Defesa: 30)")) {
+        if (classe.equals("Guerreiro (Dano: 50, Defesa: 20)")) {
             return new Guerreiro(nome);
-        } else if (classe.equals("Mago (Dano: 60, Defesa: 15)")) {
+        } else if (classe.equals("Mago (Dano: 30, Defesa: 10)")) {
             return new Mago(nome);
-        } else if (classe.equals("Arqueiro (Dano: 45, Defesa: 25)")) {
+        } else if (classe.equals("Arqueiro (Dano: 25, Defesa: 15)")) {
             return new Arqueiro(nome);
         }
         return null;
@@ -196,12 +180,10 @@ class PainelCadastro extends JPanel {
 
     private void mostrarSucesso(String mensagem) {
         resultado.setText(mensagem);
-        // resultado.setForeground(Color.GREEN);
     }
 
     private void mostrarErro(String mensagem) {
         resultado.setText(mensagem);
-        // resultado.setForeground(Color.RED);
     }
 
     private void iniciarBatalha() {

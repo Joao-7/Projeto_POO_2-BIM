@@ -1,6 +1,6 @@
 public class Mago extends Personagem {
 
     public Mago(String nome) throws NomeInvalidoException {
-        super(nome, "Mago", 60, 15);
+        super(nome, "Mago", 30, 10);
     }
 }

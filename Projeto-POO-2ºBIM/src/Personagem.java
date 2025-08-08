@@ -23,7 +23,6 @@ public abstract class Personagem implements Serializable {
         this.defesa = defesa;
     }
 
-    
     private void validarNome(String nome) throws NomeInvalidoException {
         if (nome == null || nome.trim().isEmpty()) {
             throw new NomeInvalidoException("Nome obrigatório");
