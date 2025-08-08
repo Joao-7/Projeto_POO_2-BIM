@@ -1,0 +1,83 @@
+@startuml
+' Definição dos personagens
+abstract class Personagem {
+    - nome : String
+    - tipo : String
+    - vida : int
+    - dano : int
+    - defesa : int
+    + getNome() : String
+    + getTipo() : String
+    + getVida() : int
+    + getDano() : int
+    + getDefesa() : int
+    + estaVivo() : boolean
+    + receberDano(danoRecebido : int)
+    + getHabilidadeEspecial() : String
+}
+
+class Guerreiro {
+    + Guerreiro(nome : String)
+    + getHabilidadeEspecial() : String
+}
+
+class Mago {
+    + Mago(nome : String)
+    + getHabilidadeEspecial() : String
+}
+
+class Arqueiro {
+    + Arqueiro(nome : String)
+    + getHabilidadeEspecial() : String
+}
+
+Personagem <|-- Guerreiro
+Personagem <|-- Mago
+Personagem <|-- Arqueiro
+
+' Arena e coleções
+class Arena {
+    - personagens : ArrayList<Personagem>
+    - historicoBatalhas : HashMap<String, Integer>
+    - limitePersonagens : int
+    + adicionarPersonagem(p : Personagem)
+    + buscarPersonagem(nome : String)
+    + listarPersonagens()
+    + registrarBatalha(vencedor : String, perdedor : String)
+    + mostrarHistorico()
+}
+
+Arena "1" o-- "*" Personagem : agregação
+
+' Painéis principais
+class PainelInicial
+class PainelCadastro
+class PainelBatalha
+
+' Utilitário de interface
+class UIUtils
+
+' Gerenciamento de persistência
+class GerenciadorPersistencia
+
+' Exceções personalizadas
+class NomeInvalidoException
+class ArenaCheiaException
+class ClasseInvalidaException
+class PersonagemNaoEncontradoException
+
+' Relações de uso
+PainelCadastro ..> Guerreiro
+PainelCadastro ..> Mago
+PainelCadastro ..> Arqueiro
+PainelCadastro ..> Arena
+PainelBatalha ..> Personagem
+PainelBatalha ..> Arena
+PainelInicial ..> PainelCadastro
+PainelCadastro ..> PainelBatalha
+
+Arena ..> PersonagemNaoEncontradoException
+Arena ..> ArenaCheiaException
+Personagem ..> NomeInvalidoException
+
+@enduml 
